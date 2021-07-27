@@ -15,3 +15,4 @@ container.registerSingleton<IStatementsRepository>(
   'StatementsRepository',
   StatementsRepository
 );
+

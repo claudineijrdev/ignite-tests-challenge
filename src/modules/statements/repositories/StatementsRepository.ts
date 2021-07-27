@@ -4,6 +4,7 @@ import { Statement } from "../entities/Statement";
 import { ICreateStatementDTO } from "../useCases/createStatement/ICreateStatementDTO";
 import { IGetBalanceDTO } from "../useCases/getBalance/IGetBalanceDTO";
 import { IGetStatementOperationDTO } from "../useCases/getStatementOperation/IGetStatementOperationDTO";
+import { ITrasnferStatementDTO } from "../useCases/transferStatement/ITransferStatementDTO";
 import { IStatementsRepository } from "./IStatementsRepository";
 
 export class StatementsRepository implements IStatementsRepository {
@@ -23,7 +24,7 @@ export class StatementsRepository implements IStatementsRepository {
       user_id,
       amount,
       description,
-      type
+      type,
     });
 
     return this.repository.save(statement);
@@ -36,10 +37,7 @@ export class StatementsRepository implements IStatementsRepository {
   }
 
   async getUserBalance({ user_id, with_statement = false }: IGetBalanceDTO):
-    Promise<
-      { balance: number } | { balance: number, statement: Statement[] }
-    >
-  {
+    Promise<{ balance: number } | { balance: number, statement: Statement[] }> {
     const statement = await this.repository.find({
       where: { user_id }
     });
@@ -61,4 +59,10 @@ export class StatementsRepository implements IStatementsRepository {
 
     return { balance }
   }
+
+  async transfer({ user_id, amount, description, type, recipient_id }: ITrasnferStatementDTO): Promise<Statement> {
+    throw new Error("Method not implemented.");
+  }
+
 }
+
